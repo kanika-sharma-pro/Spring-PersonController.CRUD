@@ -5,9 +5,7 @@ import io.zipcoder.repository.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 
@@ -19,11 +17,14 @@ public class PersonController {
        this.personRepo = personRepo;
    }
 
-   @RequestMapping("/people")
+   @PostMapping(value = "/people")
     ResponseEntity<Person> createPerson(@RequestBody Person p) {
-       return new ResponseEntity<>(personRepo.save(p), HttpStatus.OK);
+       return new ResponseEntity<>(personRepo.save(p), HttpStatus.CREATED);
    }
-
+@GetMapping(value = "/people/{ID}")
+    ResponseEntity<Person> getPerson (@PathVariable("id") int id) {
+       return new ResponseEntity<>(personRepo.findOne(id), HttpStatus.OK);
+}
 
 
 }
