@@ -26,5 +26,19 @@ public class PersonController {
        return new ResponseEntity<>(personRepo.findOne(id), HttpStatus.OK);
 }
 
+@GetMapping(value ="/people")
+    ResponseEntity<Iterable<Person>> getPersonList(){
+       return new ResponseEntity<>(personRepo.findAll(), HttpStatus.OK);
+}
+
+@PutMapping(value = "/people/{id}")
+ResponseEntity<Person> updatePerson (@PathVariable("id") @RequestBody Person p){
+       return new ResponseEntity<>(personRepo.save(p), HttpStatus.ACCEPTED);
+}
+
+@DeleteMapping(value = "/people/{ID}")
+    void deletePerson(@PathVariable("id") int id){
+       personRepo.delete(id);
+}
 
 }
